@@ -1,7 +1,5 @@
 import re
 from elftools.elf.sections import NoteSection, SymbolTableSection
-from elftools.common.py3compat import (
-    ifilter, byte2int, bytes2str, itervalues, str2bytes)
 from elftools.elf.elffile import ELFFile
 from elftools.dwarf.descriptions import (
     describe_reg_name, describe_attr_value, set_global_machine_arch,
@@ -270,7 +268,7 @@ class ElfAddrObj(ELFFile):
     def _attr_to_dict(self, die):
         attrs_raw = {attr[0]: attr for attr in
                      [(attr.name, attr.offset, describe_attr_value(attr, die, self.section_offset).strip()) for attr in
-                      itervalues(die.attributes)]}
+                      die.attributes.values()]}
 
         attrs = objdict()
         attrs.tag = die.tag
