@@ -301,6 +301,8 @@ class ElfAddrObj(ELFFile):
             root_type = self.offset_dict[self.variables_dict[root_base_name].DW_AT_type]
         #if root_type.tag == 'DW_TAG_const_type':
             base_type = self.offset_dict[root_type.DW_AT_type]
+            while base_type.tag == self.DW_AT_TYPEDEF:
+                base_type = self.offset_dict[base_type.DW_AT_type]
             if self.DW_AT_NAME in base_type:
                 root_struct_name = base_type.DW_AT_name
             else:
